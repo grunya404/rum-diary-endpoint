@@ -1,0 +1,28 @@
+{
+  "name": "rum-diary-proxy",
+  "version": "0.0.0",
+  "description": "Collects rum-diary.org statistics and sends them to a collector",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shane-tomlinson/rum-diary-proxy.git"
+  },
+  "keywords": [
+    "rum",
+    "rum-diary",
+    "statistics",
+    "metrics",
+    "proxy",
+    "collector",
+    "performance"
+  ],
+  "author": "Shane Tomlinson <shane@shanetomlinson.com>",
+  "license": "MPL2.0",
+  "bugs": {
+    "url": "https://github.com/shane-tomlinson/rum-diary-proxy/issues"
+  },
+  "homepage": "https://github.com/shane-tomlinson/rum-diary-proxy"
+}
