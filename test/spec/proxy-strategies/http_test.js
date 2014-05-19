@@ -14,7 +14,7 @@ describe('lib/proxy-strategies/http', function () {
     receivedData = null;
 
     server = http.createServer(function (req, resp) {
-      receivedData = req.body;
+      receivedData = true;
       console.error('received some data!');
 
       resp.statusCode = 200;
