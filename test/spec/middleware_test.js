@@ -11,17 +11,26 @@ var ResponseMock = require('../mocks/response');
 
 var Middleware = require('../../lib/middleware');
 var NullCollector = require('../../lib/collectors/null');
+var ConsoleCollector = require('../../lib/collectors/console');
 
 describe('lib/middleware', function () {
-  var nullCollector1, nullCollector2, middleware;
+  var nullCollector1, nullCollector2, consoleCollector, middleware;
 
   before(function () {
     nullCollector1 = new NullCollector();
     nullCollector2 = new NullCollector();
+    consoleCollector = new ConsoleCollector();
+    consoleCollector.init({
+      console: {
+        log: function () {
+          // drop the console messages on the ground for testing.
+        }
+      }
+    });
 
     middleware = Middleware.setup({
       endpoint: '/metrics',
-      collectors: [ nullCollector1, nullCollector2 ]
+      collectors: [ nullCollector1, nullCollector2, consoleCollector ]
     });
   });
 
