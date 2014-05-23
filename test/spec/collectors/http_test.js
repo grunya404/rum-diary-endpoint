@@ -6,22 +6,20 @@ var assert = require('chai').assert;
 var Promise = require('bluebird');
 
 var JsonEchoServer = require('../../lib/json-echo-server');
-var HttpProxy = require('../../../lib/proxy-strategies/http');
+var HttpCollector = require('../../../lib/collectors/http');
 
-describe('lib/proxy-strategies/http', function () {
-  var httpProxy, server, receivePromise;
+describe('lib/collectors/http', function () {
+  var httpCollector, server, receivePromise;
 
   before(function () {
     server = new JsonEchoServer();
     return server.init({})
         .then(function (port) {
-           httpProxy = new HttpProxy();
-           httpProxy.init({
-             loadEventUrl: 'http://127.0.0.1:' + port + '/metrics/load',
-             unloadEventUrl: 'http://127.0.0.1:' + port + '/metrics/unload',
+           httpCollector = new HttpCollector();
+           httpCollector.init({
+             collectorUrl: 'http://127.0.0.1:' + port + '/metrics',
              maxCacheSize: 3
            });
-
         });
   });
 
@@ -31,16 +29,16 @@ describe('lib/proxy-strategies/http', function () {
   });
 
   after(function (done) {
-    httpProxy.destroy();
-    httpProxy = null;
+    httpCollector.destroy();
+    httpCollector = null;
     server.close(done);
   });
 
-  describe('storeLoadEvent', function () {
+  describe('storeResult', function () {
     it('sends events to the collector after maxCacheSize is reached', function () {
-      httpProxy.storeLoadEvent({ uuid: 'loadEvent1' });
-      httpProxy.storeLoadEvent({ uuid: 'loadEvent2' });
-      httpProxy.storeLoadEvent({ uuid: 'loadEvent3' });
+      httpCollector.storeResult({ uuid: 'loadEvent1' });
+      httpCollector.storeResult({ uuid: 'loadEvent2' });
+      httpCollector.storeResult({ uuid: 'loadEvent3' });
 
       return receivePromise
           .then(function (data) {
@@ -53,28 +51,11 @@ describe('lib/proxy-strategies/http', function () {
     });
   });
 
-  describe('storeUnloadEvent', function () {
-    it('sends events to the collector after maxCacheSize is reached', function () {
-      httpProxy.storeUnloadEvent({ uuid: 'unloadEvent1' })
-      httpProxy.storeUnloadEvent({ uuid: 'unloadEvent2' });
-      httpProxy.storeUnloadEvent({ uuid: 'unloadEvent3' });
-
-      return receivePromise
-          .then(function (data) {
-            assert.deepEqual(data, [
-              { uuid: 'unloadEvent1' },
-              { uuid: 'unloadEvent2' },
-              { uuid: 'unloadEvent3' }
-            ]);
-          });
-    });
-  });
-
   describe('flush', function () {
     it('sends events to the collector even if maxCacheSize is not reached', function () {
-      httpProxy.storeUnloadEvent({ uuid: 'flushEvent1' })
-      httpProxy.storeUnloadEvent({ uuid: 'flushEvent2' });
-      httpProxy.flush();
+      httpCollector.storeResult({ uuid: 'flushEvent1' })
+      httpCollector.storeResult({ uuid: 'flushEvent2' });
+      httpCollector.flush();
 
       return receivePromise
           .then(function (data) {
