@@ -1,2 +1,8 @@
 
 node_modules/
+
+# istanbul output
+coverage/
+
+# shippable CI artifacts
+shippable/
