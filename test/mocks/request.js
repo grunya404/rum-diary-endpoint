@@ -4,8 +4,9 @@
 
 'use strict';
 
-module.exports = function (url, data) {
-  this.url = url;
-  this.body = JSON.stringify(data);
+module.exports = function (options) {
+  this.url = options.url;
+  this.method = options.method;
+  this.body = JSON.stringify(options.data);
 };
 

@@ -38,14 +38,30 @@ describe('lib/middleware', function () {
     var reqMock, respMock;
 
     it('calls next if url does not match endpoint', function (done) {
-      reqMock = new RequestMock('/some_other_endpoint');
+      reqMock = new RequestMock({
+        url: '/some_other_endpoint',
+        method: 'POST'
+      });
+      respMock = new ResponseMock();
+
+      middleware(reqMock, respMock, done);
+    });
+
+    it('calls next if method is not POST', function (done) {
+      reqMock = new RequestMock({
+        url: '/metrics',
+        method: 'GET'
+      });
       respMock = new ResponseMock();
 
       middleware(reqMock, respMock, done);
     });
 
     it('returns json response of success', function () {
-      reqMock = new RequestMock('/metrics');
+      reqMock = new RequestMock({
+        url: '/metrics',
+        method: 'POST'
+      });
       respMock = new ResponseMock();
 
       var nextCalled = false;
@@ -59,7 +75,11 @@ describe('lib/middleware', function () {
     });
 
     it('passes on data to all collectors', function (done) {
-      reqMock = new RequestMock('/metrics', { events: [ { type: 'done' } ]});
+      reqMock = new RequestMock({
+        url: '/metrics',
+        method: 'POST',
+        data: { events: [ { type: 'done' } ] }
+      });
       respMock = new ResponseMock();
 
       var collector1Event;
