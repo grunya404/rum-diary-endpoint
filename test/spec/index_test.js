@@ -13,6 +13,6 @@ describe('index', function () {
     assert.ok(index.middleware);
     assert.ok(index.Composite);
     assert.ok(index.collectors);
-  })
+  });
 });
 

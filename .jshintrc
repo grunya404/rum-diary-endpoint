@@ -20,6 +20,12 @@
   "undef": true,
   "unused": "vars",
   "globals": {
-    "define": false
+    "define": false,
+    "before": false,
+    "beforeEach": false,
+    "after": false,
+    "afterEach": false,
+    "describe": false,
+    "it": false
   }
 }
