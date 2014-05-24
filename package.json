@@ -4,7 +4,10 @@
   "description": "NodeJS endpoint to listen for rum-diary-js-client statistics and send them to one or more collectors",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive test"
+    "test": "mocha --recursive test",
+    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive test",
+    "shippable-report": "./node_modules/.bin/istanbul report cobertura --dir  shippable/codecoverage/"
+
   },
   "repository": {
     "type": "git",
@@ -36,6 +39,7 @@
   },
   "devDependencies": {
     "chai": "1.9.1",
+    "istanbul": "0.2.10",
     "mocha": "1.19.0"
   }
 }
