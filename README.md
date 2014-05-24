@@ -1,6 +1,9 @@
-# rum-diary-proxy
+# rum-diary-endpoint
 
-Collects rum-diary-client statistics and sends them to a collector
+NodeJS endpoint to listen for rum-diary-js-client statistics and send them
+to one or more collectors
+
+## Usage
 
 ## Prerequisites:
 

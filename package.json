@@ -1,28 +1,32 @@
 {
-  "name": "rum-diary-proxy",
+  "name": "rum-diary-endpoint",
   "version": "0.0.0",
-  "description": "Collects rum-diary.org statistics and sends them to a collector",
+  "description": "NodeJS endpoint to listen for rum-diary-js-client statistics and send them to one or more collectors",
   "main": "index.js",
   "scripts": {
     "test": "npm test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/shane-tomlinson/rum-diary-proxy.git"
+    "url": "https://github.com/shane-tomlinson/rum-diary-endpoint.git"
   },
   "keywords": [
     "rum",
     "rum-diary",
     "statistics",
     "metrics",
-    "proxy",
+    "endpoint",
     "collector",
-    "performance"
+    "performance",
+    "navigationTiming",
+    "resourceTiming",
+    "timing",
+    "events"
   ],
   "author": "Shane Tomlinson <shane@shanetomlinson.com>",
   "license": "MPL2.0",
   "bugs": {
-    "url": "https://github.com/shane-tomlinson/rum-diary-proxy/issues"
+    "url": "https://github.com/shane-tomlinson/rum-diary-endpoint/issues"
   },
-  "homepage": "https://github.com/shane-tomlinson/rum-diary-proxy"
+  "homepage": "https://github.com/shane-tomlinson/rum-diary-endpoint"
 }
