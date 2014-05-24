@@ -1,5 +1,8 @@
 # rum-diary-endpoint
 
+
+[![Build Status](https://api.shippable.com/projects/538074528db9d83f00ba7eca/badge/master)](https://www.shippable.com/projects/538074528db9d83f00ba7eca/builds/history)
+
 NodeJS endpoint to listen for rum-diary-js-client statistics and send them
 to one or more collectors
 
