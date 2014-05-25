@@ -5,9 +5,9 @@
 'use strict';
 
 /**
- * Middleware is initialized using `middleware.setup(options);`
+ * Middleware is initialized using `rumDiaryEndpoint.setup(options);`
  */
-exports.middleware = require('./lib/middleware');
+exports.setup = require('./lib/middleware').setup;
 
 /**
  * Direct access to an instantiable Composite.
@@ -18,7 +18,7 @@ exports.Composite = require('./lib/collector-composite');
  * Built in collectors that can be added to the middleware.
  */
 exports.collectors = {
-  console: require('./lib/collectors/console'),
-  http: require('./lib/collectors/http'),
-  'null': require('./lib/collectors/null')
+  Console: require('./lib/collectors/console'),
+  Http: require('./lib/collectors/http'),
+  'Null': require('./lib/collectors/null')
 };
