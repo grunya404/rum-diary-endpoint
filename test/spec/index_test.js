@@ -9,8 +9,8 @@ var assert = require('chai').assert;
 var index = require('../../index');
 
 describe('index', function () {
-  it('should expose middleware, Composite, collectors', function () {
-    assert.ok(index.middleware);
+  it('should expose setup, Composite, collectors', function () {
+    assert.ok(index.setup);
     assert.ok(index.Composite);
     assert.ok(index.collectors);
   });
