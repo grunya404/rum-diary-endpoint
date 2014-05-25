@@ -12,8 +12,4 @@ notifications:
 
 before_script: mkdir -p shippable/codecoverage
 
-after_script:
-  - npm run-script coverage
-  - npm run-script shippable-report
-
-
+script: npm test

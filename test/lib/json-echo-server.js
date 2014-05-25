@@ -7,8 +7,7 @@
 // A simple JSON message server. Listens for a single JSON request.
 
 var http = require('http');
-var Promise = require('bluebird');
-var util = require('util');
+var Bluebird = require('bluebird');
 
 function JsonEchoServer() {
 }
@@ -18,7 +17,7 @@ JsonEchoServer.prototype = {
     options = options || {};
 
     var self = this;
-    return new Promise(function (resolve, reject) {
+    return new Bluebird(function (resolve, reject) {
       self.server = http.createServer(function (req, resp) {
         var receivedData = '';
 
@@ -68,7 +67,7 @@ JsonEchoServer.prototype = {
   },
 
   _getReceiveDeferred: function () {
-    if (! this.receiveDeferred) this.receiveDeferred = Promise.defer();
+    if (! this.receiveDeferred) this.receiveDeferred = Bluebird.defer();
     return this.receiveDeferred;
   }
 };

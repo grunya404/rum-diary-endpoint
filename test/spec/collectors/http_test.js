@@ -2,14 +2,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+'use strict';
+
 var assert = require('chai').assert;
-var Promise = require('bluebird');
 
 var JsonEchoServer = require('../../lib/json-echo-server');
 var HttpCollector = require('../../../lib/collectors/http');
 
 describe('lib/collectors/http', function () {
-  var httpCollector, server, receivePromise;
+  var httpCollector, server, receiveBluebird;
 
   before(function () {
     server = new JsonEchoServer();
@@ -25,7 +26,7 @@ describe('lib/collectors/http', function () {
 
   beforeEach(function () {
     // reset the request promise between each test.
-    receivePromise = server.listen(true);
+    receiveBluebird = server.listen(true);
   });
 
   after(function (done) {
@@ -40,7 +41,7 @@ describe('lib/collectors/http', function () {
       httpCollector.storeResult({ uuid: 'loadEvent2' });
       httpCollector.storeResult({ uuid: 'loadEvent3' });
 
-      return receivePromise
+      return receiveBluebird
           .then(function (data) {
             assert.deepEqual(data, [
               { uuid: 'loadEvent1' },
@@ -53,11 +54,11 @@ describe('lib/collectors/http', function () {
 
   describe('flush', function () {
     it('sends events to the collector even if maxCacheSize is not reached', function () {
-      httpCollector.storeResult({ uuid: 'flushEvent1' })
+      httpCollector.storeResult({ uuid: 'flushEvent1' });
       httpCollector.storeResult({ uuid: 'flushEvent2' });
       httpCollector.flush();
 
-      return receivePromise
+      return receiveBluebird
           .then(function (data) {
             assert.deepEqual(data, [
               { uuid: 'flushEvent1' },
