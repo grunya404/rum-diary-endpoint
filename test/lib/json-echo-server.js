@@ -13,7 +13,7 @@ function JsonEchoServer() {
 }
 
 JsonEchoServer.prototype = {
-  init: function (options, done) {
+  start: function (options, done) {
     options = options || {};
 
     var self = this;

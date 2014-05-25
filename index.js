@@ -4,10 +4,14 @@
 
 'use strict';
 
+var Middleware = require('./lib/middleware');
+
 /**
  * Middleware is initialized using `rumDiaryEndpoint.setup(options);`
  */
-exports.setup = require('./lib/middleware').setup;
+module.exports.setup = function setup(options) {
+  return new Middleware(options);
+};
 
 /**
  * Direct access to an instantiable Composite.

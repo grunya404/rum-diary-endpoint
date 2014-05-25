@@ -14,10 +14,9 @@ describe('lib/collectors/http', function () {
 
   before(function () {
     server = new JsonEchoServer();
-    return server.init({})
+    return server.start({})
         .then(function (port) {
-           httpCollector = new HttpCollector();
-           httpCollector.init({
+           httpCollector = new HttpCollector({
              collectorUrl: 'http://127.0.0.1:' + port + '/metrics',
              maxCacheSize: 3
            });

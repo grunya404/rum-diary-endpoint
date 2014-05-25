@@ -19,8 +19,7 @@ describe('lib/middleware', function () {
   before(function () {
     nullCollector1 = new NullCollector();
     nullCollector2 = new NullCollector();
-    consoleCollector = new ConsoleCollector();
-    consoleCollector.init({
+    consoleCollector = new ConsoleCollector({
       console: {
         log: function () {
           // drop the console messages on the ground for testing.
@@ -28,7 +27,7 @@ describe('lib/middleware', function () {
       }
     });
 
-    middleware = Middleware.setup({
+    middleware = new Middleware({
       endpoint: '/metrics',
       collectors: [ nullCollector1, nullCollector2, consoleCollector ]
     });

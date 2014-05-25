@@ -10,9 +10,9 @@ var index = require('../../index');
 
 describe('index', function () {
   it('should expose setup, Composite, collectors', function () {
-    assert.ok(index.setup);
-    assert.ok(index.Composite);
-    assert.ok(index.collectors);
+    assert.isFunction(index.setup);
+    assert.isFunction(index.Composite);
+    assert.isObject(index.collectors);
   });
 });
 
