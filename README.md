@@ -14,7 +14,7 @@ NodeJS endpoint to listen for [rum-diary-js-client](https://github.com/shane-tom
 
 1. Include `rum-diary-endpoint`.
 2. Initialize one or more collectors.
-3. Create a middleware by calling `.setup` with the endpoint path and a list of collectors.
+3. Create a middleware, configuring it with the endpoint path and a list of collectors.
 4. Register the middleware with the application.
 
 ```js
@@ -63,8 +63,7 @@ app.use(middleware);
 ```js
 const rumDiaryEndpoint = require('rum-diary-endpoint');
 
-const httpCollector = new rumDiaryEndpoint.collectors.Http();
-httpCollector.init({
+const httpCollector = new rumDiaryEndpoint.collectors.Http({
   collectorUrl: 'https://rum-diary.org/load'
 });
 
