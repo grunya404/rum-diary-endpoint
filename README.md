@@ -34,14 +34,14 @@ app.use(middleware);
 ## Advanced Use
 
 ## Custom collectors
-A collector is an object that must expose 2 functions, `storeResult` and `flush`.
-`storeResult` and `flush` can return a promise to handle asynchronous operations.
+A collector is an object that must expose 2 functions, `write` and `flush`.
+`write` and `flush` can return a promise to handle asynchronous operations.
 
 ```js
 const metricsDatabase = setupMetricsDatabase();
 
 const metricsDatabaseCollector = {
-  storeResult: function (result) {
+  write: function (result) {
     return metricsDatabase.create(result);
   },
 
@@ -90,7 +90,7 @@ const metricsCollectors = new RumDiaryComposite({
 ...
 
 app.get('/metrics', function (req, next) {
-  metricsCollectors.storeResult(req.body);
+  metricsCollectors.write(req.body);
 });
 ```
 
