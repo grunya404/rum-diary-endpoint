@@ -34,8 +34,11 @@ app.use(middleware);
 ## Advanced Use
 
 ## Custom collectors
-A collector is an object that must expose 2 functions, `write` and `flush`.
-`write` and `flush` can return a promise to handle asynchronous operations.
+A collector is an object that must expose three functions:
+
+* `write` - write results to the collector.
+* `flush` - flush any cached data to the collector.
+* `destroy` - the collector is about to be destroyed.
 
 ```js
 const metricsDatabase = setupMetricsDatabase();
@@ -47,6 +50,10 @@ const metricsDatabaseCollector = {
 
   flush: function () {
     return metricsDatabase.persist();
+  },
+
+  destroy: function () {
+    return metricsDatabase.close();
   }
 };
 
@@ -80,7 +87,7 @@ app.use(middleware);
 ```js
 const rumDiaryEndpoint = require('rum-diary-endpoint');
 const RumDiaryComposite = rumDiaryEndpoint.Composite;
-const consoleCollector = new rumDiaryEndpoint.collectors.console();
+const consoleCollector = new rumDiaryEndpoint.collectors.Console();
 
 
 const metricsCollectors = new RumDiaryComposite({
