@@ -14,5 +14,16 @@ describe('index', function () {
     assert.isFunction(index.Composite);
     assert.isObject(index.collectors);
   });
+
+  describe('setup', function () {
+    it('should return a middleware', function () {
+      var middleware = index.setup({
+        endpoint: '/metrics',
+        collectors: []
+      });
+
+      assert.isFunction(middleware);
+    });
+  });
 });
 
