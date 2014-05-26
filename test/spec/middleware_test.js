@@ -82,11 +82,11 @@ describe('lib/middleware', function () {
       respMock = new ResponseMock();
 
       var collector1Event;
-      nullCollector1.on('event', function (event) {
+      nullCollector1.on('data', function (event) {
         collector1Event = event;
       });
 
-      nullCollector2.on('event', function (event) {
+      nullCollector2.on('data', function (event) {
         assert.ok(collector1Event);
         assert.ok(event);
         done();

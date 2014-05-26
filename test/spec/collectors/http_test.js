@@ -34,11 +34,11 @@ describe('lib/collectors/http', function () {
     server.close(done);
   });
 
-  describe('storeResult', function () {
+  describe('write', function () {
     it('sends events to the collector after maxCacheSize is reached', function () {
-      httpCollector.storeResult({ uuid: 'loadEvent1' });
-      httpCollector.storeResult({ uuid: 'loadEvent2' });
-      httpCollector.storeResult({ uuid: 'loadEvent3' });
+      httpCollector.write({ uuid: 'loadEvent1' });
+      httpCollector.write({ uuid: 'loadEvent2' });
+      httpCollector.write({ uuid: 'loadEvent3' });
 
       return receiveBluebird
           .then(function (data) {
@@ -53,8 +53,8 @@ describe('lib/collectors/http', function () {
 
   describe('flush', function () {
     it('sends events to the collector even if maxCacheSize is not reached', function () {
-      httpCollector.storeResult({ uuid: 'flushEvent1' });
-      httpCollector.storeResult({ uuid: 'flushEvent2' });
+      httpCollector.write({ uuid: 'flushEvent1' });
+      httpCollector.write({ uuid: 'flushEvent2' });
       httpCollector.flush();
 
       return receiveBluebird
