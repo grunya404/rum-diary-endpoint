@@ -19,6 +19,12 @@ module.exports.setup = function setup(options) {
 exports.Composite = require('./lib/collector-composite');
 
 /**
+ * Direct access to an instantiable Handler. Use to hook
+ * up directly to a route without using the middleware.
+ */
+exports.Handler = require('./lib/handler');
+
+/**
  * Built in collectors that can be added to the middleware.
  */
 exports.collectors = {

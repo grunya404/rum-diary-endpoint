@@ -11,25 +11,16 @@ var ResponseMock = require('../mocks/response');
 
 var Middleware = require('../../lib/middleware');
 var NullCollector = require('../../lib/collectors/null');
-var ConsoleCollector = require('../../lib/collectors/console');
 
 describe('lib/middleware', function () {
-  var nullCollector1, nullCollector2, consoleCollector, middleware;
+  var nullCollector, middleware;
 
   before(function () {
-    nullCollector1 = new NullCollector();
-    nullCollector2 = new NullCollector();
-    consoleCollector = new ConsoleCollector({
-      console: {
-        log: function () {
-          // drop the console messages on the ground for testing.
-        }
-      }
-    });
+    nullCollector = new NullCollector();
 
     middleware = new Middleware({
       endpoint: '/metrics',
-      collectors: [ nullCollector1, nullCollector2, consoleCollector ]
+      collectors: [ nullCollector ]
     });
   });
 
@@ -71,28 +62,6 @@ describe('lib/middleware', function () {
       assert.isFalse(nextCalled);
       assert.equal(respMock.status, 200);
       assert.isTrue(JSON.parse(respMock.body).success);
-    });
-
-    it('passes on data to all collectors', function (done) {
-      reqMock = new RequestMock({
-        url: '/metrics',
-        method: 'POST',
-        data: { events: [ { type: 'done' } ] }
-      });
-      respMock = new ResponseMock();
-
-      var collector1Event;
-      nullCollector1.on('data', function (event) {
-        collector1Event = event;
-      });
-
-      nullCollector2.on('data', function (event) {
-        assert.ok(collector1Event);
-        assert.ok(event);
-        done();
-      });
-
-      middleware(reqMock, respMock);
     });
   });
 });

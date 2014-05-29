@@ -84,6 +84,10 @@ app.use(middleware);
 
 ## Direct use
 
+### Composite
+
+The `Composite` can be used directly.
+
 ```js
 const rumDiaryEndpoint = require('rum-diary-endpoint');
 const RumDiaryComposite = rumDiaryEndpoint.Composite;
@@ -96,10 +100,32 @@ const metricsCollectors = new RumDiaryComposite({
 
 ...
 
-app.get('/metrics', function (req, next) {
-  metricsCollectors.write(req.body);
+app.post('/metrics', function (req, next) {
+  var cleanMetrics = scrubMetrics(req.body);
+  metricsCollectors.write(cleanMetrics);
 });
 ```
+
+### Handler
+
+If custom route handling is needed, the `Handler` object can be instantiated
+and initialized independently.
+
+```js
+const rumDiaryEndpoint = require('rum-diary-endpoint');
+const RumDiaryHandler = rumDiaryEndpoint.Handler;
+const consoleCollector = new rumDiaryEndpoint.collectors.Console();
+
+
+const handler = new RumDiaryHandler({
+  collectors: [ consoleCollector ]
+});
+
+...
+
+app.post('/metrics', handler);
+```
+
 
 ## Prerequisites:
 
