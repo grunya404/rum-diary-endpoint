@@ -5,8 +5,14 @@
 'use strict';
 
 module.exports = function (options) {
+  var self = this;
   this.url = options.url;
   this.method = options.method;
   this.body = JSON.stringify(options.data);
+  this.headers = options.headers || {};
+
+  this.get = function (headerName) {
+    return self.headers[headerName];
+  };
 };
 
