@@ -42,13 +42,14 @@ describe('lib/handler', function () {
       });
       respMock = new ResponseMock();
 
-      handler(reqMock, respMock);
-
-      assert.equal(respMock.status, 200);
-      assert.isTrue(JSON.parse(respMock.body).success);
+      return handler(reqMock, respMock)
+          .then(function () {
+            assert.equal(respMock.status, 200);
+            assert.isTrue(JSON.parse(respMock.body).success);
+          });
     });
 
-    it('takes `user_agent`, `location` from headers, passes on data to collectors', function (done) {
+    it('takes `user_agent`, `location` from headers, passes on data to collectors', function () {
       reqMock = new RequestMock({
         url: '/metrics',
         method: 'POST',
@@ -60,22 +61,23 @@ describe('lib/handler', function () {
       });
       respMock = new ResponseMock();
 
-      var collector1Event;
+      var collector1Event, collector2Event;
       nullCollector1.on('data', function (event) {
         collector1Event = event;
       });
 
       nullCollector2.on('data', function (event) {
-        assert.ok(collector1Event);
-        assert.ok(event);
-
-        assert.equal(event.user_agent, 'a user agent');
-        assert.equal(event.location, 'site the request comes from');
-
-        done();
+        collector2Event = event;
       });
 
-      handler(reqMock, respMock);
+      return handler(reqMock, respMock)
+          .then(function () {
+            assert.ok(collector1Event);
+            assert.ok(collector2Event);
+
+            assert.equal(collector2Event.user_agent, 'a user agent');
+            assert.equal(collector2Event.location, 'site the request comes from');
+          });
     });
   });
 });

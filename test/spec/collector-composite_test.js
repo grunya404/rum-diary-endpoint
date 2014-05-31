@@ -16,7 +16,13 @@ describe('lib/collector-composite', function () {
   before(function () {
     nullCollector1 = new NullCollector();
     nullCollector2 = new NullCollector();
-    consoleCollector = new ConsoleCollector();
+    consoleCollector = new ConsoleCollector({
+      console: {
+        log: function () {
+          // drop the console messages on the ground for testing.
+        }
+      }
+    });
 
     composite = new CollectorComposite({
       collectors: [ nullCollector1, nullCollector2, consoleCollector ]
