@@ -1,6 +1,6 @@
 {
   "name": "rum-diary-endpoint",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "NodeJS endpoint to listen for rum-diary-js-client statistics and send them to one or more collectors",
   "main": "index.js",
   "scripts": {
