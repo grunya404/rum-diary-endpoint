@@ -71,7 +71,7 @@ app.use(middleware);
 const rumDiaryEndpoint = require('rum-diary-endpoint');
 
 const httpCollector = new rumDiaryEndpoint.collectors.Http({
-  collectorUrl: 'https://rum-diary.org/load'
+  collectorUrl: 'https://rum-diary.org/metrics'
 });
 
 const middleware = rumDiaryEndpoint.setup({
