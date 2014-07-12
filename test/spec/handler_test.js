@@ -49,7 +49,7 @@ describe('lib/handler', function () {
           });
     });
 
-    it('takes `user_agent`, `location` from headers, passes on data to collectors', function () {
+    it('takes `userAgent`, `location` from headers, passes on data to collectors', function () {
       reqMock = new RequestMock({
         url: '/metrics',
         method: 'POST',
@@ -75,7 +75,7 @@ describe('lib/handler', function () {
             assert.ok(collector1Event);
             assert.ok(collector2Event);
 
-            assert.equal(collector2Event.user_agent, 'a user agent');
+            assert.equal(collector2Event.userAgent, 'a user agent');
             assert.equal(collector2Event.location, 'site the request comes from');
           });
     });
